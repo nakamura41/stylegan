@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -P volta_pilot
+#PBS -j oe
+#PBS -N tensorflow
+#PBS -q volta_gpu
+#PBS -l select=1:ncpus=5:mem=90gb:ngpus=2
+#PBS -l walltime=48:00:00
+
+cd $PBS_O_WORKDIR;
+np=$(cat ${PBS_NODEFILE} | wc -l);
+
+image="/app1/common/singularity-img/3.0.0/tensorflow_1.12_nvcr_19.01-py3.simg"
+
+singularity exec $image bash << EOF > stdout.$PBS_JOBID 2> stderr.$PBS_JOBID
+
+export PYTHONPATH=$PYTHONPATH:/home/svu/e0267574/volta_pypkg/lib/python3.5/site-packages
+
+python train.py
+EOF
