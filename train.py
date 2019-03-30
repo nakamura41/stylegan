@@ -19,7 +19,7 @@ def main():
     parser = ArgumentParser(description='Style GAN')
     parser.add_argument('--algorithm', metavar='algorithm', type=str, help='algorithm', default='sgan')
     parser.add_argument('--resume_run_id', metavar='resume_run_id', type=str, help='resume run id', default=None)
-    parser.add_argument('--resume_kimg', metavar='resume_kimg', type=int, help='resume kimg', default=0)
+    parser.add_argument('--resume_kimg', metavar='resume_kimg', type=float, help='resume kimg', default=0.0)
     args = parser.parse_args()
 
     # ----------------------------------------------------------------------------
