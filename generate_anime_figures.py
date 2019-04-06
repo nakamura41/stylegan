@@ -62,7 +62,7 @@ def gen_animated_faces(Gs):
         frame_idx = int(np.clip(np.round(t * mp4_fps), 0, num_frames - 1))
         latents = all_latents[frame_idx]
         fmt = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
-        images = Gs.run(latents, None, truncation_psi=0.7,
+        images = Gs.run(latents, None, truncation_psi=0.5,
                         randomize_noise=False, output_transform=fmt)
 
         grid = create_image_grid(images, grid_size)
