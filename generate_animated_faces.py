@@ -9,7 +9,7 @@
 
 import os
 import pickle
-
+import copy
 import moviepy.editor
 import numpy as np
 import scipy
@@ -48,14 +48,16 @@ def load_Gs(url):
 
 
 def animate_latents(seed_latents, num_frames):
-    inc = 0.0001
+    inc = 0.003
     all_latents = []
     for frame in range(num_frames):
-        new_latents = seed_latents
-        new_latents[0] = new_latents[0] - inc
+        new_latents = copy.deepcopy(seed_latents)
+        for i in range(10):
+            new_latents[i] = new_latents[i] + inc
         all_latents.append(new_latents)
         seed_latents = new_latents
-    return np.array(all_latents)
+    np_arr = np.array(all_latents)
+    return np_arr
 
 
 def gen_animated_faces(Gs):
@@ -72,7 +74,7 @@ def gen_animated_faces(Gs):
         frame_idx = int(np.clip(np.round(t * mp4_fps), 0, num_frames - 1))
         latents = all_latents[frame_idx]
         fmt = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
-        images = Gs.run(latents, None, truncation_psi=0.5,
+        images = Gs.run(latents, None, truncation_psi=0.7,
                         randomize_noise=False, output_transform=fmt)
 
         grid = create_image_grid(images, grid_size)
