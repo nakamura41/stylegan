@@ -4,6 +4,7 @@ results
 output/images/*.png
 output/images/*.psd
 output/latents/*.npy
+output/videos/*.mp4
 output/*.mp4
 cache
 

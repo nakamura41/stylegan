@@ -52,9 +52,9 @@ def gen_face(Gs, latents, random_seed, latent_modifier=0, latent_modifier_positi
         print("latent_modifier: {}".format(latent_modifier))
         print("latent_modifier_position: {}".format(latent_modifier_position))
         latents[latent_modifier_position] = latents[latent_modifier_position] + latent_modifier
-        filename = "results/images/image_{}_{}_{}.png".format(random_seed, latent_modifier, latent_modifier_position)
+        filename = "output/images/image_{}_{}_{}.png".format(random_seed, latent_modifier, latent_modifier_position)
     else:
-        filename = "results/images/image_{}.png".format(random_seed)
+        filename = "output/images/image_{}.png".format(random_seed)
 
     fmt = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
     latents = latents.reshape((1, latents.shape[0]))
@@ -86,13 +86,13 @@ if __name__ == "__main__":
         print("Generate latents, random seed={}".format(random_seed))
         Gs = load_model()
         latents = generate_latents(Gs, random_seed)
-        filename = "results/latents/latents_{}".format(random_seed)
+        filename = "output/latents/latents_{}".format(random_seed)
         np.save(filename, latents)
         print("latents is saved on {}".format(filename))
     if args.use_latents:
         print("Use existing latents")
         random_seed = args.use_latents
-        filename = "results/latents/latents_{}.npy".format(random_seed)
+        filename = "output/latents/latents_{}.npy".format(random_seed)
         latents = np.load(filename)
         Gs = load_model()
         gen_face(Gs, latents, random_seed, args.latent_modifier, args.latent_modifier_position)
