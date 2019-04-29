@@ -1,8 +1,10 @@
 .idea
 datasets
-results/images/*.png
-results/latents/*.npy
-results/*.mp4
+results
+output/images/*.png
+output/images/*.psd
+output/latents/*.npy
+output/*.mp4
 cache
 
 *.pyc
